@@ -2,49 +2,37 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>3D Axis - Light Chair Preview</title>
+    <title>3D Axis - Chair Model</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene loading-screen="enabled: false" background="color: #ECECF6">
-      
-      <!-- إضاءة محيطية شاملة لمنع السواد تماماً -->
-      <a-entity light="type: ambient; color: #FFFFFF; intensity: 1.8"></a-entity>
-      <a-entity light="type: directional; color: #FFFFFF; intensity: 0.8" position="2 4 3"></a-entity>
+    <a-scene>
+      <a-assets>
+        <!-- ضع رابط ملف الـ OBJ وملف الـ MTL هنا -->
+        <a-asset-item id="chair-obj" src="chair_f.obj"></a-asset-item>
+        <a-asset-item id="chair-mtl" src="chair_f.mtl"></a-asset-item>
+      </a-assets>
 
-      <!-- أرضية فاتحة -->
-      <a-plane position="0 0 -3" rotation="-90 0 0" width="10" height="10" color="#E0E0E0"></a-plane>
+      <!-- الإضاءة لضمان ظهور ألوان الكرسي وعدم اسوداده -->
+      <a-light type="ambient" color="#ffffff" intensity="0.8"></a-light>
+      <a-light type="directional" position="-1 2 1" intensity="0.5"></a-light>
 
-      <!-- مجسم الكرسي بألوان فاتحة (Chair Entity) -->
-      <a-entity id="custom-chair" position="0 0 -2.5">
-        
-        <!-- المقعد (Seat) -->
-        <a-box position="0 0.5 0" width="0.6" height="0.08" depth="0.6" color="#4A90E2"></a-box>
-        
-        <!-- المسند الظهر (Backrest) -->
-        <a-box position="0 0.9 -0.26" width="0.58" height="0.6" depth="0.06" color="#4A90E2"></a-box>
-        
-        <!-- عمود التوصيل بالظهر -->
-        <a-box position="0 0.6 -0.26" width="0.1" height="0.2" depth="0.04" color="#7F8C8D"></a-box>
-
-        <!-- العمود الأوسط (Center Stem) -->
-        <a-cylinder position="0 0.25 0" radius="0.04" height="0.42" color="#BDC3C7"></a-cylinder>
-
-        <!-- قاعدة الكرسي النجمية (Base Frame) -->
-        <a-cylinder position="0 0.04 0" radius="0.28" height="0.03" color="#7F8C8D"></a-cylinder>
-
-        <!-- أرجل العجلات السفلية (Base Legs) -->
-        <a-box position="0 0.04 0" width="0.6" height="0.03" depth="0.08" color="#34495E"></a-box>
-        <a-box position="0 0.04 0" width="0.08" height="0.03" depth="0.6" color="#34495E" rotation="0 45 0"></a-box>
-        <a-box position="0 0.04 0" width="0.08" height="0.03" depth="0.6" color="#34495E" rotation="0 -45 0"></a-box>
-
+      <!-- استدعاء الكرسي مع تصغير الحجم (Scale) وضبط الموقع -->
+      <a-entity 
+        obj-model="obj: #chair-obj; mtl: #chair-mtl" 
+        position="0 0 -3" 
+        scale="0.02 0.02 0.02" 
+        rotation="0 45 0">
       </a-entity>
 
       <!-- الكاميرا -->
-      <a-entity position="0 1.2 0">
-        <a-camera></a-camera>
+      <a-entity id="rig" position="0 1.6 0">
+        <a-camera look-controls wasd-controls></a-camera>
       </a-entity>
 
+      <!-- الأرضية -->
+      <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
+      <a-sky color="#ECECF6"></a-sky>
     </a-scene>
   </body>
 </html>
